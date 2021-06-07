@@ -62,7 +62,7 @@ set nofoldenable         " 禁用折叠代码
 " 代码补全
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildmenu             " vim自身命名行模式智能补全
-set completeopt-=preview " 补全时不显示窗口，只显示补全列表
+set completeopt-=preview " 补全时不显示窗口
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 搜索设置
@@ -83,8 +83,8 @@ set confirm             " 在处理未保存或只读文件的时候，弹出确
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 编码设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set langmenu=zh_CN.UTF-8
-set helplang=cn
+set langmenu=en_US.UTF-8
+set helplang=en
 set termencoding=utf-8
 set encoding=utf8
 set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
@@ -123,14 +123,18 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
-Plug 'chxuan/cpp-mode'
-Plug 'chxuan/vim-edit'
+" Plug 'chxuan/cpp-mode'
+" Plug 'chxuan/vim-edit'
 Plug 'chxuan/change-colorscheme'
 Plug 'chxuan/prepare-code'
 Plug 'chxuan/vim-buffer'
-Plug 'chxuan/vimplus-startify'
+Plug 'mhinz/vim-startify'
 Plug 'preservim/tagbar'
-Plug 'Valloric/YouCompleteMe'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe Disabled.
+" Plug 'Valloric/YouCompleteMe'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'kiteco/vim-plugin'
 Plug 'Yggdroot/LeaderF'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
@@ -223,14 +227,14 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 
 " cpp-mode
-nnoremap <leader>y :CopyCode<cr>
-nnoremap <leader>p :PasteCode<cr>
-nnoremap <leader>U :GoToFunImpl<cr>
-nnoremap <silent> <leader>a :Switch<cr>
-nnoremap <leader><leader>fp :FormatFunParam<cr>
-nnoremap <leader><leader>if :FormatIf<cr>
-nnoremap <leader><leader>t dd :GenTryCatch<cr>
-xnoremap <leader><leader>t d :GenTryCatch<cr>
+" nnoremap <leader>y :CopyCode<cr>
+" nnoremap <leader>p :PasteCode<cr>
+" nnoremap <leader>U :GoToFunImpl<cr>
+" nnoremap <silent> <leader>a :Switch<cr>
+" nnoremap <leader><leader>fp :FormatFunParam<cr>
+" nnoremap <leader><leader>if :FormatIf<cr>
+" nnoremap <leader><leader>t dd :GenTryCatch<cr>
+" xnoremap <leader><leader>t d :GenTryCatch<cr>
 
 " change-colorscheme
 nnoremap <silent> <F9> :PreviousColorScheme<cr>
@@ -252,10 +256,10 @@ nnoremap <silent> <leader>d :CloseBuffer<cr>
 nnoremap <silent> <leader>D :BufOnly<cr>
 
 " vim-edit
-nnoremap Y :CopyText<cr>
-nnoremap D :DeleteText<cr>
-nnoremap C :ChangeText<cr>
-nnoremap <leader>r :ReplaceTo<space>
+" nnoremap Y :CopyText<cr>
+" nnoremap D :DeleteText<cr>
+" nnoremap C :ChangeText<cr>
+" nnoremap <leader>r :ReplaceTo<space>
 
 " nerdtree
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
@@ -270,32 +274,33 @@ let g:NERDTreeDirArrowCollapsible='▼'
 " YCM
 " 如果不指定python解释器路径，ycm会自己搜索一个合适的(与编译ycm时使用的python版本匹配)
 " let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
-let g:ycm_confirm_extra_conf = 0 
-let g:ycm_error_symbol = '✗'
-let g:ycm_warning_symbol = '✹'
-let g:ycm_seed_identifiers_with_syntax = 1 
-let g:ycm_complete_in_comments = 1 
-let g:ycm_complete_in_strings = 1 
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_semantic_triggers =  {
-            \   'c' : ['->', '.','re![_a-zA-z0-9]'],
-            \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-            \             're!\[.*\]\s'],
-            \   'ocaml' : ['.', '#'],
-            \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
-            \   'perl' : ['->'],
-            \   'php' : ['->', '::'],
-            \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-            \   'ruby' : ['.', '::'],
-            \   'lua' : ['.', ':'],
-            \   'erlang' : [':'],
-            \ }
-nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
+" let g:ycm_confirm_extra_conf = 0 
+" let g:ycm_error_symbol = '✗'
+" let g:ycm_warning_symbol = '✹'
+" let g:ycm_seed_identifiers_with_syntax = 1 
+" let g:ycm_complete_in_comments = 1 
+" let g:ycm_complete_in_strings = 1 
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_semantic_triggers =  {
+"            \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+"            \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"            \             're!\[.*\]\s'],
+"
+"            \   'ocaml' : ['.', '#'],
+"            \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+"            \   'perl' : ['->'],
+"            \   'php' : ['->', '::'],
+"            \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"            \   'ruby' : ['.', '::'],
+"            \   'lua' : ['.', ':'],
+"            \   'erlang' : [':'],
+"            \ }
+" nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
 " nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
-nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader>ff :YcmCompleter FixIt<cr>
-nmap <F5> :YcmDiags<cr>
+" nnoremap <leader>o :YcmCompleter GoToInclude<cr>
+" nnoremap <leader>ff :YcmCompleter FixIt<cr>
+" nmap <F5> :YcmDiags<cr>
 
 " tagbar
 let g:tagbar_width = 30
